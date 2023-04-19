@@ -1,0 +1,17 @@
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
+
+namespace OnlineCalendarWPF.DatabaseModel
+{
+    public class ReminderModel
+    {
+        [BsonId]
+        public Guid Id { get; set; }
+        [BsonId]
+        public Guid UserId { get; set; }
+        [BsonId]
+        public Guid EventId { get; set; }
+        public DateTime ScheduledAt { get; set; }
+
+    }
+}

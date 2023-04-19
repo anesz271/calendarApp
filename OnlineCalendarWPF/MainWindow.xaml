@@ -7,6 +7,38 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 	<Grid>
-		<Calendar Height="170" HorizontalAlignment="Left" Margin="58,32,0,0"  Name="calendar1" VerticalAlignment="Top" Width="180" />
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition/> <!--calendar-->
+			<RowDefinition/> <!--event title-->
+			<RowDefinition/> <!--starts at-->
+			<RowDefinition/> <!--ends at-->
+			<RowDefinition/> <!--set a reminder-->
+		</Grid.RowDefinitions>
+
+		<TextBlock Grid.Column="0" Grid.Row="0" Text="Calendar" Margin="5" Height="30"/>
+		<ComboBox Grid.Column="1" Height="30" Margin="5">
+			<ComboBoxItem>Calendar #1</ComboBoxItem>
+			<ComboBoxItem IsSelected="True">Family Calendar #2</ComboBoxItem>
+			<ComboBoxItem>Work Calendar#3</ComboBoxItem>
+		</ComboBox>
+
+		<TextBlock Grid.Column="0" Grid.Row="1" Text="Event title" Margin="5" Height="30"/>
+		<TextBox Grid.Column="1" Grid.Row="1" x:Name="EventTitle" Margin="5" Height="30"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="2" Text="Start date" Margin="5" Height="30"/>
+		<TextBox Grid.Column="1" Grid.Row="2" x:Name="StartDate" Margin="5" Height="30"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="3" Text="End date" Margin="5" Height="30"/>
+		<TextBox Grid.Column="1" Grid.Row="3" x:Name="EndDate" Margin="5" Height="30"/>
+
+		<Button Grid.Column="1" Grid.Row="4" Height="30" >Set a reminder</Button>
+
+		<Calendar Grid.Column="2" Grid.RowSpan="5" Height="170" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"  Name="Calendar" Width="180" />
 	</Grid>
 </Window>
