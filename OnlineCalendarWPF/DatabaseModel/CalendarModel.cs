@@ -7,7 +7,6 @@ namespace OnlineCalendarWPF
     {
         [BsonId]
         public Guid Id { get; set; }
-        [BsonId]
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

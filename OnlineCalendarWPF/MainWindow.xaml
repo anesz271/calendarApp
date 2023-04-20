@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineCalendarWPF"
+		xmlns:viewmodel="clr-namespace:OnlineCalendarWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-	<Grid>
+        Title="Calendar App" Height="450" Width="800">
+
+
+	<Window.Resources>
+		<viewmodel:ViewModel x:Key="vm"></viewmodel:ViewModel>
+	</Window.Resources>
+
+
+	<Grid DataContext="{Binding Source={StaticResource vm}}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
 			<ColumnDefinition/>
@@ -19,26 +27,45 @@
 			<RowDefinition/> <!--starts at-->
 			<RowDefinition/> <!--ends at-->
 			<RowDefinition/> <!--set a reminder-->
+			<RowDefinition/> <!--save event-->
+			<RowDefinition Height="*"/> <!-- proba -->
 		</Grid.RowDefinitions>
 
-		<TextBlock Grid.Column="0" Grid.Row="0" Text="Calendar" Margin="5" Height="30"/>
-		<ComboBox Grid.Column="1" Height="30" Margin="5">
-			<ComboBoxItem>Calendar #1</ComboBoxItem>
-			<ComboBoxItem IsSelected="True">Family Calendar #2</ComboBoxItem>
-			<ComboBoxItem>Work Calendar#3</ComboBoxItem>
+		<TextBlock Grid.Column="0" Grid.Row="0" Text="Calendar" Margin="5" Height="30" HorizontalAlignment="Right"/>
+		<ComboBox Grid.Column="1" Height="30" Margin="5"
+				  ItemsSource="{Binding Path=CalendarsList}"    
+                  SelectedValue="{Binding Path=SelectedCalendar}"  
+                  DisplayMemberPath="Name"
+				  >
 		</ComboBox>
 
-		<TextBlock Grid.Column="0" Grid.Row="1" Text="Event title" Margin="5" Height="30"/>
-		<TextBox Grid.Column="1" Grid.Row="1" x:Name="EventTitle" Margin="5" Height="30"/>
+		<TextBlock Grid.Column="0" Grid.Row="1" Text="Event title" Margin="5" Height="30" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="1" x:Name="EventTitleTextBox" Margin="5" Height="30"/>
 
-		<TextBlock Grid.Column="0" Grid.Row="2" Text="Start date" Margin="5" Height="30"/>
-		<TextBox Grid.Column="1" Grid.Row="2" x:Name="StartDate" Margin="5" Height="30"/>
+		<TextBlock Grid.Column="0" Grid.Row="2" Text="Start date" Margin="5" Height="30" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="2" x:Name="StartDateTextBox" Margin="5" Height="30"  MouseLeave="StartDateTextBox_MouseLeave"/>
 
-		<TextBlock Grid.Column="0" Grid.Row="3" Text="End date" Margin="5" Height="30"/>
-		<TextBox Grid.Column="1" Grid.Row="3" x:Name="EndDate" Margin="5" Height="30"/>
+		<TextBlock Grid.Column="0" Grid.Row="3" Text="End date" Margin="5" Height="30" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="3" x:Name="EndDateTextBox" Margin="5" Height="30" MouseLeave="StartDateTextBox_MouseLeave"/>
 
-		<Button Grid.Column="1" Grid.Row="4" Height="30" >Set a reminder</Button>
+		<Button Grid.Column="1" Grid.Row="4" Height="30" Background="White" Foreground="CornflowerBlue">Set a reminder</Button>
+		
+		<Button Grid.Column="1" Grid.Row="5" Height="30" Background="CornflowerBlue" Foreground="FloralWhite" 
+				Click="SaveEventButton_Click">Save event</Button>
 
-		<Calendar Grid.Column="2" Grid.RowSpan="5" Height="170" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"  Name="Calendar" Width="180" />
+		<TextBlock Grid.Column="1" Grid.Row="6" x:Name="ProbaTextBox" Text ="{Binding Path=Valami}" Margin="5" Height="30"/>
+		<!--<TextBlock Grid.Column="1" Grid.Row="6" x:Name="ProbaTextBox" DataContext="{Binding Source={StaticResource vm}}" Text ="{Binding Path=Valami}" Margin="5" Height="30"/>-->
+
+		<Calendar SelectionMode="SingleRange"  
+				  Grid.Column="2" Grid.RowSpan="5" 
+				  Height="170" 
+				  HorizontalAlignment="Center" 
+				  VerticalAlignment="Center" 
+				  Margin="5"
+				  Name="Calendar"  
+				  SelectedDatesChanged="Calendar_SelectedDatesChanged"  
+				  DisplayDateChanged="Calendar_DisplayDateChanged"  
+				  DisplayModeChanged="Calendar_DisplayModeChanged"  
+		/>
 	</Grid>
 </Window>

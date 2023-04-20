@@ -7,9 +7,7 @@ namespace OnlineCalendarWPF.DatabaseModel
     {
         [BsonId]
         public Guid Id { get; set; }
-        [BsonId]
         public Guid UserId { get; set; }
-        [BsonId]
         public Guid EventId { get; set; }
         public DateTime ScheduledAt { get; set; }
 
